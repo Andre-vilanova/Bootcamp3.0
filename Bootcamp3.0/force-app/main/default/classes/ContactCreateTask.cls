@@ -13,15 +13,16 @@ global class ContactCreateTask {
         
         List<HabilidadeContato__c> listaHabilidadesContatos = [select Id, Contato__C, Habilidade__r.Name from HabilidadeContato__c WHERE Contato__c IN : listaContatosIds];
         System.debug('>>> listaHabilidadesContatos :: '+listaHabilidadesContatos);  
-            
+            //  Tipo de dados da chave ID | Tipo de valores do dados 
             Map<Id, List<String>> mapContatoHabilidades = new Map<Id, List<String>>();
             
             // pega todas as habilidades aqui 
             for(HabilidadeContato__c habilidadeContato : listaHabilidadesContatos){
                 System.debug('>>>HabilidadesContato ::'+habilidadeContato.Habilidade__r.Name);
                 
+                // verifica se contem habilidade no contato
                 if(mapContatoHabilidades.containsKey(habilidadeContato.Contato__c)){
-                    //
+                    //Adiciona no mapa
                     mapContatoHabilidades.get(habilidadeContato.Contato__c).add(habilidadeContato.Habilidade__r.Name);
                     
                 }else{
@@ -29,7 +30,7 @@ global class ContactCreateTask {
                     mapContatoHabilidades.put(habilidadeContato.Contato__c,new list<String>{habilidadeContato.Habilidade__r.Name});
                 }
             }
-        
+        // Cria tarefa 
         createTasks(requests , mapContatoHabilidades);
         }
     }   
@@ -47,6 +48,8 @@ global class ContactCreateTask {
                 	tarefa.Description = 'Por favor avalie este heroi. Suas habilidades são: '+ String.valueOf(mapContatoHabilidades.get(request.contactId));
              	tasksToInsert.add(tarefa);   
         	}
+
+            // insert no banco
              if(!tasksToInsert.isEmpty()){
             	insert tasksToInsert;
         		}

@@ -21,14 +21,14 @@
         <name>ApexTrigger</name>
     </types>
     <types>
-        <members>*</members>
-        <name>AuraDefinitionBundle</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>LightningComponentBundle</name>
-    </types>
-    <types>
+    <members>*</members>
+    <name>AuraDefinitionBundle</name>
+</types>
+<types>
+    <members>*</members>
+    <name>LightningComponentBundle</name>
+</types>
+        <types>
         <members>*</members>
         <name>StaticResource</name>
     </types>
